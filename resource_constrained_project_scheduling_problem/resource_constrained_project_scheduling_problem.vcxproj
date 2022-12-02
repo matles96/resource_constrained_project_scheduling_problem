@@ -139,7 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ProblemInstance.cpp" />
     <ClCompile Include="resource_constrained_project_scheduling_problem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ProblemInstance.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

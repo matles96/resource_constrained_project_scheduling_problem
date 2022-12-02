@@ -1,10 +1,12 @@
 // resource_constrained_project_scheduling_problem.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include <iostream>
+#include"ProblemInstance.h"
 
 int main()
 {
+    auto pi = ProblemInstance();
+    pi.redFromFile("aa");
     std::cout << "Hello World!\n";
 }
 

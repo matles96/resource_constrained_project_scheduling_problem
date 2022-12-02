@@ -18,5 +18,13 @@
     <ClCompile Include="resource_constrained_project_scheduling_problem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ProblemInstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ProblemInstance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
