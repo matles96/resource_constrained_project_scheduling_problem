@@ -6,7 +6,7 @@
 int main()
 {
     auto pi = ProblemInstance();
-    pi.redFromFile("aa");
+    pi.redFromFile("j301_1.sm");
     std::cout << "Hello World!\n";
 }
 

@@ -145,6 +145,9 @@
   <ItemGroup>
     <ClInclude Include="ProblemInstance.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="j301_1.sm" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
