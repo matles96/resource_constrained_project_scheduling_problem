@@ -2,12 +2,20 @@
 //
 
 #include"ProblemInstance.h"
+#include "Random.h"
+#include "Individual.h"
+
 
 int main()
 {
     auto pi = ProblemInstance();
     pi.redFromFile("j301_1.sm");
+    Individual* ind = new Individual;
+    Random::generate_ran(&pi, ind);
+    ind->create_by_priority_lists(&pi);
     std::cout << "Hello World!\n";
+    //ind->print();
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
