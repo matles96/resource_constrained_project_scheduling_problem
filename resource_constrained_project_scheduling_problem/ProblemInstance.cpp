@@ -34,7 +34,7 @@ void ProblemInstance::redFromFile(string fileName)
 			this->duedate = tokens.at(3);
 			this->tarcost = tokens.at(4);
 			this->MPMTime = tokens.at(5);
-			amountOfAncestors.resize(jobs);
+			amountOfAncestors.resize(lastJob);
 			std::fill(amountOfAncestors.begin(), amountOfAncestors.end(), 0);
 		}
 		if (myText == "  R 1  R 2  R 3  R 4") {
@@ -47,12 +47,12 @@ void ProblemInstance::redFromFile(string fileName)
 			this->R4 = tokens.at(3);
 		}
 		if (myText == "jobnr.    #modes  #successors   successors") {
-			for (int i = 0; i < jobs + 1; i++) {
+			for (int i = 0; i < lastJob; i++) {
 				getline(File, myText);
 				auto tokens = this->split(myText);
 				seccessors.push_back(vector<int>(tokens.begin() + 3, tokens.end()));
 				for ( auto it = tokens.begin() + 3; it != tokens.end(); it++)
-					amountOfAncestors[*it - 1]++;
+					amountOfAncestors[*it-1]++;
 			}
 		}
 		if (myText == "jobnr. mode duration  R 1  R 2  R 3  R 4") {

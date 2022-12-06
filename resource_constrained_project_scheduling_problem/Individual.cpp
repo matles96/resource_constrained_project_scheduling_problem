@@ -1,13 +1,12 @@
 #include "Individual.h"
 
 void Individual::print(){
-    for (int i=0; i<stages_am; i++){
-        cout << endl << i << ".\t";
-        for (int j=0; j<resources_am; j++){
-            cout << "R" << j << ": " << whole_sol[i][j].second << "\t";
+    for (int j = 0; j < whole_sol.size(); j++) {
+        for (int i = 0; i < whole_sol[j].size(); i++) {
+            cout << "R" << whole_sol[j][i].first << ": " << whole_sol[j][i].second << "\t";
         }
+        cout << endl;
     }
-    cout << endl;
 }
 
 Individual::Individual(int res) {

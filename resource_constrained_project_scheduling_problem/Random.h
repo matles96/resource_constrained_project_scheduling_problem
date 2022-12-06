@@ -14,4 +14,5 @@ class Random
 public:
 	Individual generate_ran(ProblemInstance data);
 	Individual create_by_priority_lists(ProblemInstance data, vector<vector<int> > priority);
+	bool contains(vector<int> vec, int val);
 };

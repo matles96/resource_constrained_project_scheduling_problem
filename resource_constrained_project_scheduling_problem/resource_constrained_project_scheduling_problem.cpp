@@ -11,7 +11,9 @@ int main()
     auto pi = ProblemInstance();
     pi.redFromFile("j301_1.sm");
     Random random;
-    Individual ind = random.generate_ran(pi);
+    std::cout << "Hello World!\n";
+    Individual ind(4);
+    ind = random.generate_ran(pi);
     ind.print();
     std::cout << "Hello World!\n";
 }
