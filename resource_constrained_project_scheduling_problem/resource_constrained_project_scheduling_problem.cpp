@@ -10,12 +10,12 @@ int main()
 {
     auto pi = ProblemInstance();
     pi.redFromFile("j301_1.sm");
-    Random random;
+    Individual* ind = new Individual;
+    Random::generate_ran(&pi, ind);
+    ind->create_by_priority_lists(&pi);
     std::cout << "Hello World!\n";
-    Individual ind(4);
-    ind = random.generate_ran(pi);
-    ind.print();
-    std::cout << "Hello World!\n";
+    //ind->print();
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
