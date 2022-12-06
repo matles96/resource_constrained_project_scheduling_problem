@@ -21,7 +21,7 @@ vector<int> ProblemInstance::split(const string& s)
 void ProblemInstance::redFromFile(string fileName)
 {
 	string myText;
-	ifstream File(fileName);
+	ifstream File(fileName, std::ifstream::in);
 	int jobs=0;
 	while (getline(File, myText)) {
 		if (myText == "pronr.  #jobs rel.date duedate tardcost  MPM-Time") {
@@ -34,6 +34,8 @@ void ProblemInstance::redFromFile(string fileName)
 			this->duedate = tokens.at(3);
 			this->tarcost = tokens.at(4);
 			this->MPMTime = tokens.at(5);
+			amountOfAncestors.resize(jobs);
+			std::fill(amountOfAncestors.begin(), amountOfAncestors.end(), 0);
 		}
 		if (myText == "  R 1  R 2  R 3  R 4") {
 			getline(File, myText);
@@ -47,10 +49,10 @@ void ProblemInstance::redFromFile(string fileName)
 		if (myText == "jobnr.    #modes  #successors   successors") {
 			for (int i = 0; i < jobs + 1; i++) {
 				getline(File, myText);
-
 				auto tokens = this->split(myText);
 				seccessors.push_back(vector<int>(tokens.begin() + 3, tokens.end()));
-				
+				for ( auto it = tokens.begin() + 3; it != tokens.end(); it++)
+					amountOfAncestors[*it - 1]++;
 			}
 		}
 		if (myText == "jobnr. mode duration  R 1  R 2  R 3  R 4") {

@@ -9,13 +9,15 @@
 using namespace std;
 class ProblemInstance
 {
-	int R1, R2, R3, R4, relDate, duedate, tarcost, MPMTime, lastJob;
-	vector<vector<int>>  seccessors;
-	vector<pair<int, int>>  usingResources;
-	vector<int>  duration;
 	vector<int> split(const string& s);
 public:
+	vector<int>  duration;
+	int R1, R2, R3, R4, relDate, duedate, tarcost, MPMTime, lastJob;
+	vector<vector<int> >  seccessors;
+	vector<int> amountOfAncestors;
+	vector<pair<int, int> >  usingResources;
 	void redFromFile(string fileName);
+	~ProblemInstance();
 };
 
 
