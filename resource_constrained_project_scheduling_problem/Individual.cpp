@@ -3,10 +3,11 @@
 void Individual::print(){
     for (int j = 0; j < whole_sol.size(); j++) {
         for (int i = 0; i < whole_sol[j].size(); i++) {
-            cout << "R" << whole_sol[j][i].first << ": " << whole_sol[j][i].second << "\t";
+            cout << "R" << whole_sol[j][i].first +1<< ": " << whole_sol[j][i].second +1<< "\t";
         }
         cout << endl;
     }
+    cout << "Koszt rozwiazania to: " << cost << endl;
 }
 
 Individual::Individual(int res, vector<vector<int> > p) {
@@ -29,6 +30,8 @@ void Individual::create_by_priority_lists(ProblemInstance* data, bool fitnessOnl
         cout << "Brak wektorow priorytetow!\n";
         return;
     }
+    whole_sol.clear();    
+    cost=0;
 
     int res_am = 4;
     int jobsToDo = data->lastJob;
@@ -117,13 +120,14 @@ void Individual::create_by_priority_lists(ProblemInstance* data, bool fitnessOnl
         if(!fitnessOnly){
             whole_sol.push_back(row);
             for (int i = 0; i < whole_sol[poglodowaZmiennaDoWydruku].size() && !fitnessOnly; i++) {
-                cout << "R" << whole_sol[poglodowaZmiennaDoWydruku][i].first << ": " << whole_sol[poglodowaZmiennaDoWydruku][i].second +1 << "\t";
+                cout << "R" << whole_sol[poglodowaZmiennaDoWydruku][i].first +1<< ": " << whole_sol[poglodowaZmiennaDoWydruku][i].second +1 << "\t";
             }
             cout << endl;
             poglodowaZmiennaDoWydruku++;
         }
     }
-    cout << "Koszt rozwiazania to: " << cost << endl;
+    if(!fitnessOnly)
+        cout << "Koszt rozwiazania to: " << cost << endl;
     return;
 }
 

@@ -4,6 +4,7 @@
 #include"ProblemInstance.h"
 #include "Random.h"
 #include "Individual.h"
+#include "FIHC.h"
 
 
 int main()
@@ -12,9 +13,10 @@ int main()
     pi.redFromFile("j301_1.sm");
     Individual* ind = new Individual;
     Random::generate_ran(&pi, ind);
+    FIHC::fihc(&pi, ind);
     ind->create_by_priority_lists(&pi);
-    std::cout << "Hello World!\n";
     //ind->print();
+    std::cout << "Hello World!\n";
     return 0;
 }
 
