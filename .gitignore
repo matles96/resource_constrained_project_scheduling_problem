@@ -13,6 +13,11 @@
 *.json
 *.DS_Store
 *.plist
+Random
+ProblemInstance
+Individual
+resource_constrained_project_scheduling_problem
+resource_constrained_project_scheduling_problem/DWARF
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
