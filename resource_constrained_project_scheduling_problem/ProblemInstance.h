@@ -17,7 +17,6 @@ public:
 	vector<int> amountOfAncestors;
 	vector<pair<int, int> >  usingResources;
 	void redFromFile(string fileName);
-	~ProblemInstance();
 };
 
 
