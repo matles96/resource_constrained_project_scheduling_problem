@@ -56,48 +56,72 @@ void Individual::create_by_priority_lists(ProblemInstance* data, bool fitnessOnl
     }
     jobsToDo--;
     int poglodowaZmiennaDoWydruku=0;
-    vector<int> task4stage = {-1, -1, -1, -1};
+    vector< vector<int> > task4stage;
+    for (int i=0; i <res_am; i++){
+        vector<int> r1;
+        task4stage.push_back(r1);
+    }
+    vector<int> resourceAvibilities;
+    resourceAvibilities.push_back(data->R1);
+    resourceAvibilities.push_back(data->R2);
+    resourceAvibilities.push_back(data->R3);
+    resourceAvibilities.push_back(data->R4);
     while(jobsToDo>1){
         cost++;
         vector<pair<int, int> > row;
         vector<int> newAvaible;
         for(int i=0; i<res_am; i++ ){
             if(!available[i].empty()){
-                for ( auto it = priority[i].begin(); it != priority[i].end() && task4stage[i]==-1; it++)
-                    if  (contains(available[i], *it)){
-                        task4stage[i] = *it;
-                        break;
+                //wybranie taskow
+                for ( auto it = priority[i].begin(); it != priority[i].end(); it++)
+                    if  ( contains(available[i], *it) && !contains(task4stage[i], *it) && resourceAvibilities[i] - data->usingResources[*it].second >= 0 ){
+                        task4stage[i].push_back(*it);
+                        resourceAvibilities[i] -= data->usingResources[*it].second;
                     }
-                if(!fitnessOnly)
-                    row.push_back(pair<int, int>(data->usingResources[task4stage[i]].first, task4stage[i]));
-                durat[task4stage[i]]--;
-                if(durat[task4stage[i]]==0){
-                    for(int j=0; j<available[i].size(); j++){
-                        if(available[i][j]==task4stage[i]){
-                            remove(available[i].begin(),available[i].end(),task4stage[i]);
-                            available[i].pop_back();
-                            jobsToDo--;
-                            for ( auto it = data->seccessors[task4stage[i]].begin(); it != data->seccessors[task4stage[i]].end(); it++){ 
-                                if(--stillRequiedTaskToStart[*it-1]==0)
-                                    newAvaible.push_back(*it-1);
+                //-------------
+
+                vector<int> toRemove; 
+                for ( auto task = task4stage[i].begin(); task != task4stage[i].end(); task++){
+                    if(!fitnessOnly)
+                        row.push_back(pair<int, int>(data->usingResources[*task].first, *task));
+                    durat[*task]--;
+                    //task zakonczony
+                    if(durat[*task]==0){
+                        for(int j=0; j<available[i].size(); j++){
+                            if(available[i][j]==*task){
+                                remove(available[i].begin(),available[i].end(),*task);
+                                available[i].pop_back();
+                                resourceAvibilities[i] += data->usingResources[*task].second;
+                                jobsToDo--;
+                                for ( auto it = data->seccessors[*task].begin(); it != data->seccessors[*task].end(); it++){ 
+                                    if(--stillRequiedTaskToStart[*it-1]==0)
+                                        newAvaible.push_back(*it-1);
+                                }
+                                toRemove.push_back(*task);
+                                break;
                             }
-                            task4stage[i] = -1;
-                            break;
                         }
                     }
                 }
+                for ( auto it = toRemove.begin(); it != toRemove.end(); it++){ 
+                    remove(task4stage[i].begin(), task4stage[i].end(), *it);
+                    task4stage[i].pop_back();
+                }
+                
             }
         }
         for ( auto it = newAvaible.begin(); it != newAvaible.end(); it++)
-            // dodanie_nowych_dostępnych_taskow[id_resource][id_task]
-            available[data->usingResources[*it].first].push_back(*it);
-        if(!fitnessOnly)
+            if(*it!=data->lastJob-1)
+                // dodanie_nowych_dostępnych_taskow[id_resource][id_task]
+                available[data->usingResources[*it].first].push_back(*it);
+        if(!fitnessOnly){
             whole_sol.push_back(row);
-        for (int i = 0; i < whole_sol[poglodowaZmiennaDoWydruku].size() && !fitnessOnly; i++) {
-            cout << "R" << whole_sol[poglodowaZmiennaDoWydruku][i].first << ": " << whole_sol[poglodowaZmiennaDoWydruku][i].second << "\t";
+            for (int i = 0; i < whole_sol[poglodowaZmiennaDoWydruku].size() && !fitnessOnly; i++) {
+                cout << "R" << whole_sol[poglodowaZmiennaDoWydruku][i].first << ": " << whole_sol[poglodowaZmiennaDoWydruku][i].second +1 << "\t";
+            }
+            cout << endl;
+            poglodowaZmiennaDoWydruku++;
         }
-        cout << endl;
-        poglodowaZmiennaDoWydruku++;
     }
     cout << "Koszt rozwiazania to: " << cost << endl;
     return;
